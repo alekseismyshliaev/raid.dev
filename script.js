@@ -449,7 +449,7 @@ function raid_2(h, v, d, dd)
 			runReadDataNode(value, 0, dataDelay);
 			dataDelay += 2200;
 		});
-	}
+	};
 
 	$('#start', '#raid-2').click(function()
 	{
@@ -465,13 +465,17 @@ function raid_2(h, v, d, dd)
 	})
 }
 
-function raid_3(horizontal, vertical, delay, dataDelay)
+function raid_3(h, v, d, dd)
 {
 	var nodes = $('.node', '#raid-3');
 	var dataNodes = $('.data-node', '#raid-3');
 
-	$('#start', '#raid-3').click(function()
+	var write = function()
 	{
+		var horizontal = h;
+		var vertical = v;
+		var delay = d;
+		var dataDelay = dd;
 		$.each(dataNodes, function( index, value )
 		{
 			runDataNode(value, 145, dataDelay);
@@ -515,16 +519,33 @@ function raid_3(horizontal, vertical, delay, dataDelay)
 				horizontal += 117;
 			}
 		});
+	};
+
+	$('#start', '#raid-3').click(function()
+	{
+		if($(this).text() == 'READ')
+		{
+			read();
+			$(this).text('WRITE');
+		} else if($(this).text() == 'WRITE')
+		{
+			write();
+			$(this).text('READ');
+		}
 	})
 }
 
-function raid_4(horizontal, vertical, delay, dataDelay)
+function raid_4(h, v, d, dd)
 {
 	var nodes = $('.node', '#raid-4');
 	var dataNodes = $('.data-node', '#raid-4');
 
-	$('#start', '#raid-4').click(function()
+	var write = function()
 	{
+		var horizontal = h;
+		var vertical = v;
+		var delay = d;
+		var dataDelay = dd;
 		$.each(dataNodes, function( index, value )
 		{
 			runDataNode(value, 145, dataDelay);
@@ -568,16 +589,33 @@ function raid_4(horizontal, vertical, delay, dataDelay)
 				horizontal += 117;
 			}
 		});
+	};
+
+	$('#start', '#raid-4').click(function()
+	{
+		if($(this).text() == 'READ')
+		{
+			read();
+			$(this).text('WRITE');
+		} else if($(this).text() == 'WRITE')
+		{
+			write();
+			$(this).text('READ');
+		}
 	})
 }
 
-function raid_5(horizontal, vertical, delay, dataDelay)
+function raid_5(h, v, d, dd)
 {
 	var nodes = $('.node', '#raid-5');
 	var dataNodes = $('.data-node', '#raid-5');
 
-	$('#start', '#raid-5').click(function()
+	var write = function()
 	{
+		var horizontal = h;
+		var vertical = v;
+		var delay = d;
+		var dataDelay = dd;
 		$.each(dataNodes, function( index, value )
 		{
 			runDataNode(value, 145, dataDelay);
@@ -597,16 +635,33 @@ function raid_5(horizontal, vertical, delay, dataDelay)
 			}
 			else horizontal += 117;
 		});
+	};
+
+	$('#start', '#raid-5').click(function()
+	{
+		if($(this).text() == 'READ')
+		{
+			read();
+			$(this).text('WRITE');
+		} else if($(this).text() == 'WRITE')
+		{
+			write();
+			$(this).text('READ');
+		}
 	})
 }
 
-function raid_6(horizontal, vertical, delay, dataDelay)
+function raid_6(h, v, d, dd)
 {
 	var nodes = $('.node', '#raid-6');
 	var dataNodes = $('.data-node', '#raid-6');
 
-	$('#start', '#raid-6').click(function()
+	var write = function()
 	{
+		var horizontal = h;
+		var vertical = v;
+		var delay = d;
+		var dataDelay = dd;
 		$.each(dataNodes, function( index, value )
 		{
 			runDataNode(value, 145, dataDelay);
@@ -626,5 +681,26 @@ function raid_6(horizontal, vertical, delay, dataDelay)
 			}
 			else horizontal += 117;
 		});
+	};
+
+	var read = function()
+	{
+		var horizontal = h;
+		var vertical = v;
+		var delay = dd;
+		var dataDelay = d;
+	};
+
+	$('#start', '#raid-6').click(function()
+	{
+		if($(this).text() == 'READ')
+		{
+			read();
+			$(this).text('WRITE');
+		} else if($(this).text() == 'WRITE')
+		{
+			write();
+			$(this).text('READ');
+		}
 	})
 }
