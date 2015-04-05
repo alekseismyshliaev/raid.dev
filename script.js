@@ -341,17 +341,21 @@ function raid_1(h, v, d, dd)
 	})
 }
 
-function raid_2(horizontal, vertical, delay, dataDelay)
+function raid_2(h, v, d, dd)
 {
 	var nodes = $('.node', '#raid-2');
 	var dataNodes = $('.data-node', '#raid-2');
 
-	$('#start', '#raid-2').click(function()
+	var write = function()
 	{
+		var horizontal = h;
+		var vertical = v;
+		var delay = d;
+		var dataDelay = dd;
 		$.each(dataNodes, function( index, value )
 		{
 			runDataNode(value, 145, dataDelay);
-			dataDelay += 1000;
+			dataDelay += 3600;
 		});
 
 		$.each(nodes, function( index, value )
@@ -423,6 +427,41 @@ function raid_2(horizontal, vertical, delay, dataDelay)
 				horizontal += 117;
 			}
 		});
+	};
+
+	var read = function()
+	{
+		var horizontal = h;
+		var vertical = v;
+		var delay = dd;
+		var dataDelay = d+1000;
+
+		var noparityNodes = $(nodes).not('.parity');
+
+		$.each(noparityNodes, function( index, value )
+		{
+			runReadNode(value, 0, 0, delay);
+			delay += 500;
+		});
+
+		$.each(dataNodes, function( index, value )
+		{
+			runReadDataNode(value, 0, dataDelay);
+			dataDelay += 2200;
+		});
+	}
+
+	$('#start', '#raid-2').click(function()
+	{
+		if($(this).text() == 'READ')
+		{
+			read();
+			$(this).text('WRITE');
+		} else if($(this).text() == 'WRITE')
+		{
+			write();
+			$(this).text('READ');
+		}
 	})
 }
 
