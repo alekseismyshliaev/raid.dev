@@ -48,18 +48,16 @@ function checkWhichPane(paneActive, horizontal, vertical, delay, dataDelay)
 	if(paneActive == 0)
 		raid_0(horizontal, vertical, delay, dataDelay);
 	if(paneActive == 1)
-		raid_0_read(horizontal, vertical, dataDelay, delay*4);
-	if(paneActive == 2)
 		raid_1(horizontal, vertical, delay, dataDelay);
-	if(paneActive == 3)
+	if(paneActive == 2)
 		raid_2(horizontal, vertical, delay, dataDelay);
-	if(paneActive == 4)
+	if(paneActive == 3)
 		raid_3(horizontal, vertical, delay, dataDelay);
-	if(paneActive == 5)
+	if(paneActive == 4)
 		raid_4(horizontal, vertical, delay, dataDelay);
-	if(paneActive == 6)
+	if(paneActive == 5)
 		raid_5(horizontal, vertical, delay, dataDelay);
-	if(paneActive == 7)
+	if(paneActive == 6)
 		raid_6(horizontal, vertical, delay, dataDelay);
 }
 
@@ -195,13 +193,18 @@ function runRAID3Nodes(node, delay, endCoord)
 	}, delay);
 }
 
-function raid_0(horizontal, vertical, delay, dataDelay)
+function raid_0(h, v, d, dd)
 {
 	var nodes = $('.node', '#raid-0');
 	var dataNodes = $('.data-node', '#raid-0');
+	var button = $('#start', '#raid-0');
 
-	$('#start', '#raid-0').click(function ()
+	var write = function ()
 	{
+		var horizontal = h;
+		var vertical = v;
+		var delay = d;
+		var dataDelay = dd;
 		$.each(dataNodes, function( index, value )
 		{
 			runDataNode(value, 145, dataDelay);
@@ -221,35 +224,15 @@ function raid_0(horizontal, vertical, delay, dataDelay)
 			}
 			else horizontal += 117;
 		});
-	})
-}
+		button.text('READ');
+	};
 
-function raid_0_read(horizontal, vertical, delay, dataDelay)
-{
-	var nodes = $('.node', '#raid-0-read');
-	var dataNodes = $('.data-node', '#raid-0-read');
-	var origVertical = vertical;
-
-	$.each(nodes, function( index, value )
+	var read = function()
 	{
-		placeNode(value, horizontal, vertical);
-
-		if((index+1) % 4 == 0 && index != 0)
-		{
-			horizontal = 59;
-			vertical += 26;
-		}
-		else horizontal += 117;
-	});
-		
-	$.each(dataNodes, function( index, value )
-	{
-		runDataNode(value, 145, 0);
-	});
-
-	$('#start', '#raid-0-read').click(function()
-	{
-
+		var horizontal = h;
+		var vertical = v;
+		var delay = dd;
+		var dataDelay = d*4;
 		$.each(nodes, function( index, value )
 		{
 			runReadNode(value, delay, 0, 0);
@@ -262,6 +245,15 @@ function raid_0_read(horizontal, vertical, delay, dataDelay)
 			runReadDataNode(value, 0, dataDelay);
 			dataDelay += 1000;
 		});
+		button.text('WRITE');
+	};
+
+	button.click(function()
+	{
+		if($(this).text() == 'READ')
+			read();
+		else if($(this).text() == 'WRITE')
+			write();
 	})
 }
 
