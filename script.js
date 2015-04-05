@@ -48,16 +48,18 @@ function checkWhichPane(paneActive, horizontal, vertical, delay, dataDelay)
 	if(paneActive == 0)
 		raid_0(horizontal, vertical, delay, dataDelay);
 	if(paneActive == 1)
-		raid_1(horizontal, vertical, delay, dataDelay);
+		raid_0_read(horizontal, vertical, dataDelay, delay*4);
 	if(paneActive == 2)
-		raid_2(horizontal, vertical, delay, dataDelay);
+		raid_1(horizontal, vertical, delay, dataDelay);
 	if(paneActive == 3)
-		raid_3(horizontal, vertical, delay, dataDelay);
+		raid_2(horizontal, vertical, delay, dataDelay);
 	if(paneActive == 4)
-		raid_4(horizontal, vertical, delay, dataDelay);
+		raid_3(horizontal, vertical, delay, dataDelay);
 	if(paneActive == 5)
-		raid_5(horizontal, vertical, delay, dataDelay);
+		raid_4(horizontal, vertical, delay, dataDelay);
 	if(paneActive == 6)
+		raid_5(horizontal, vertical, delay, dataDelay);
+	if(paneActive == 7)
 		raid_6(horizontal, vertical, delay, dataDelay);
 }
 
@@ -102,6 +104,18 @@ function runDataNode(node, distance, delay)
 	}, delay);
 }
 
+function runReadDataNode(node, distance, delay)
+{
+	setTimeout(function()
+	{
+		$(node).css('width', '80px');
+	}, delay - 500);
+	setTimeout(function()
+	{
+		slideRight(node, distance, 0);
+	}, delay);
+}
+
 function runNode(node, delay, horizontal, vertical)
 {
 	setTimeout(function()
@@ -110,6 +124,23 @@ function runNode(node, delay, horizontal, vertical)
 		slideRight(node, horizontal, 0);
 		slideDown(node, vertical, 1000);
 	}, delay);
+}
+
+function runReadNode(node, delay, horizontal, vertical)
+{
+	setTimeout(function()
+	{
+		slideDown(node, vertical, 0);
+		slideRight(node, horizontal, 1000);
+		shrinkNode(node, 2000);
+	}, delay);
+}
+
+function placeNode(node, horizontal, vertical)
+{
+	slideRight(node, horizontal, 0);
+	slideDown(node, vertical, 0);
+	expandNode(node, 0);
 }
 
 function runRAID2Node1(node, delay, endCoord)
@@ -169,12 +200,12 @@ function raid_0(horizontal, vertical, delay, dataDelay)
 	var nodes = $('.node', '#raid-0');
 	var dataNodes = $('.data-node', '#raid-0');
 
-	$('#start', '#raid-0').click(function()
+	$('#start', '#raid-0').click(function ()
 	{
 		$.each(dataNodes, function( index, value )
 		{
 			runDataNode(value, 145, dataDelay);
-			dataDelay += 1000;
+			dataDelay+= 1000;
 		});
 
 		$.each(nodes, function( index, value )
@@ -189,6 +220,47 @@ function raid_0(horizontal, vertical, delay, dataDelay)
 				vertical += 26;
 			}
 			else horizontal += 117;
+		});
+	})
+}
+
+function raid_0_read(horizontal, vertical, delay, dataDelay)
+{
+	var nodes = $('.node', '#raid-0-read');
+	var dataNodes = $('.data-node', '#raid-0-read');
+	var origVertical = vertical;
+
+	$.each(nodes, function( index, value )
+	{
+		placeNode(value, horizontal, vertical);
+
+		if((index+1) % 4 == 0 && index != 0)
+		{
+			horizontal = 59;
+			vertical += 26;
+		}
+		else horizontal += 117;
+	});
+		
+	$.each(dataNodes, function( index, value )
+	{
+		runDataNode(value, 145, 0);
+	});
+
+	$('#start', '#raid-0-read').click(function()
+	{
+
+		$.each(nodes, function( index, value )
+		{
+			runReadNode(value, delay, 0, 0);
+
+			delay += 500;
+		});
+		
+		$.each(dataNodes, function( index, value )
+		{
+			runReadDataNode(value, 0, dataDelay);
+			dataDelay += 1000;
 		});
 	})
 }
