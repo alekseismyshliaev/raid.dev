@@ -124,7 +124,7 @@ function runNode(node, delay, horizontal, vertical)
 	}, delay);
 }
 
-function runReadNode(node, delay, horizontal, vertical)
+function runReadNode(node, horizontal, vertical, delay)
 {
 	setTimeout(function()
 	{
@@ -197,7 +197,6 @@ function raid_0(h, v, d, dd)
 {
 	var nodes = $('.node', '#raid-0');
 	var dataNodes = $('.data-node', '#raid-0');
-	var button = $('#start', '#raid-0');
 
 	var write = function ()
 	{
@@ -224,7 +223,6 @@ function raid_0(h, v, d, dd)
 			}
 			else horizontal += 117;
 		});
-		button.text('READ');
 	};
 
 	var read = function()
@@ -235,7 +233,7 @@ function raid_0(h, v, d, dd)
 		var dataDelay = d*4;
 		$.each(nodes, function( index, value )
 		{
-			runReadNode(value, delay, 0, 0);
+			runReadNode(value, 0, 0, delay);
 
 			delay += 500;
 		});
@@ -245,25 +243,33 @@ function raid_0(h, v, d, dd)
 			runReadDataNode(value, 0, dataDelay);
 			dataDelay += 1000;
 		});
-		button.text('WRITE');
 	};
 
-	button.click(function()
+	$('#start', '#raid-0').click(function()
 	{
 		if($(this).text() == 'READ')
+		{
 			read();
-		else if($(this).text() == 'WRITE')
+			$(this).text('WRITE');
+		} else if($(this).text() == 'WRITE')
+		{
 			write();
+			$(this).text('READ');
+		}
 	})
 }
 
-function raid_1(horizontal, vertical, delay, dataDelay)
+function raid_1(h, v, d, dd)
 {
 	var nodes = $('.node', '#raid-1');
 	var dataNodes = $('.data-node', '#raid-1');
 
-	$('#start', '#raid-1').click(function()
+	var write = function()
 	{
+		var horizontal = h;
+		var vertical = v;
+		var delay = d;
+		var dataDelay = dd;
 		$.each(dataNodes, function( index, value )
 		{
 			runDataNode(value, 145, dataDelay);
@@ -300,6 +306,38 @@ function raid_1(horizontal, vertical, delay, dataDelay)
 				else horizontal += 117;
 			}
 		});
+	};
+
+	var read = function() {
+		var horizontal = h;
+		var vertical = v;
+		var delay = dd;
+		var dataDelay = d+1000;
+
+		$.each(nodes, function( index, value )
+		{
+			runReadNode(value, 0, 0, delay);
+			delay += 500;
+		});
+
+		$.each(dataNodes, function( index, value )
+		{
+			runReadDataNode(value, 0, dataDelay);
+			dataDelay += 1150;
+		});
+	};
+
+	$('#start', '#raid-1').click(function()
+	{
+		if($(this).text() == 'READ')
+		{
+			read();
+			$(this).text('WRITE');
+		} else if($(this).text() == 'WRITE')
+		{
+			write();
+			$(this).text('READ');
+		}
 	})
 }
 
