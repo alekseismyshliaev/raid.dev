@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>RAID visualizer</title>
+
+		<meta charset="UTF-8">
+
+		<link rel="icon" href="img/favicon.png" type="image/gif">
+
+		<link href='http://fonts.googleapis.com/css?family=Roboto&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="wrapper">
+
+			<div class="arrow go-left center"></div>
+			<div class="arrow go-right center"></div>
+
+			<div id="raid-0" class="center pane">
+
+				<h1 class="title">RAID 0 <span>(write)</span></h1>
+				<p class="sub-title">
+					Striped Disk Array without Fault Tolerance
+				</p>
+
+				<div class="pane-inner-wrapper">
+
+					<img src="img/server.jpg" class="server">
+					<div class="server-title">Server</div>
+
+					<img src="img/ctrl.png" class="ctrl">
+					<div class="ctrl-title">RAID</br>Controller</div>
+
+					<div class="HDDs">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+					</div>
+
+					<div class="HDD-titles">
+						<div class="HDD-title">Disk 1</div>
+						<div class="HDD-title">Disk 2</div>
+						<div class="HDD-title">Disk 3</div>
+						<div class="HDD-title">Disk 4</div>
+					</div>
+
+					<div class="lines">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="data-nodes">
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+					</div>
+
+					<div class="nodes">
+						<div class="node">A</div>
+						<div class="node">B</div>
+						<div class="node">C</div>
+						<div class="node">D</div>
+						<div class="node">E</div>
+						<div class="node">F</div>
+						<div class="node">G</div>
+						<div class="node">H</div>
+						<div class="node">I</div>
+						<div class="node">J</div>
+						<div class="node">K</div>
+						<div class="node">L</div>
+						<div class="node">M</div>
+						<div class="node">N</div>
+						<div class="node">O</div>
+						<div class="node">P</div>
+					</div>
+
+				</div>
+
+				<div class="button" id="start">START</div>
+				<div class="button reset" id="reset">RESET</div>	
+			</div>
+
+			<div id="raid-1" class="center pane">
+
+				<h1 class="title">RAID 1 <span>(write)</span></h1>
+				<p class="sub-title">
+					Mirroring & Duplexing
+				</p>
+
+				<div class="pane-inner-wrapper">
+
+					<img src="img/server.jpg" class="server">
+					<div class="server-title">Server</div>
+
+					<img src="img/ctrl.png" class="ctrl">
+					<div class="ctrl-title">RAID</br>Controller</div>
+
+					<div class="HDDs">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+					</div>
+
+					<div class="HDD-titles">
+						<div class="HDD-title">Disk 1</div>
+						<div class="HDD-title">Disk 2</div>
+						<div class="HDD-title">Disk 3</div>
+						<div class="HDD-title">Disk 4</div>
+					</div>
+
+					<div class="mirroring mirroring-1"></div>
+					<div class="mirroring mirroring-2"></div>
+
+					<div class="lines">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="data-nodes">
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+					</div>
+
+					<div class="nodes">
+						<div class="node">A</div>
+						<div class="node">A</div>
+						<div class="node">B</div>
+						<div class="node">B</div>
+						<div class="node">C</div>
+						<div class="node">C</div>
+						<div class="node">D</div>
+						<div class="node">D</div>
+						<div class="node">E</div>
+						<div class="node">E</div>
+						<div class="node">F</div>
+						<div class="node">F</div>
+						<div class="node">G</div>
+						<div class="node">G</div>
+						<div class="node">H</div>
+						<div class="node">H</div>
+					</div>
+
+				</div>
+
+				<div class="button" id="start">START</div>
+				<div class="button reset" id="reset">RESET</div>
+			</div>
+
+			<div id="raid-2" class="center pane">
+
+				<h1 class="title">RAID 2 <span>(write)</span></h1>
+				<p class="sub-title">
+					Hamming Code ECC
+				</p>
+
+				<div class="pane-inner-wrapper">
+
+					<img src="img/server.jpg" class="server">
+					<div class="server-title">Server</div>
+
+					<img src="img/ctrl.png" class="ctrl">
+					<div class="ctrl-title">RAID</br>Controller</div>
+
+					<div class="HDDs">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+
+						<div class="seperator"></div>
+
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+					</div>
+
+					<div class="HDD-titles">
+						<div class="HDD-title">Disk 1</div>
+						<div class="HDD-title">Disk 2</div>
+						<div class="HDD-title">Disk 3</div>
+						<div class="HDD-title">Disk 4</div>
+
+						<div class="seperator"></div>
+
+						<div class="HDD-title">Disk 5</div>
+						<div class="HDD-title">Disk 6</div>
+						<div class="HDD-title">Disk 7</div>
+					</div>
+
+					<div class="lines">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="lines lines-2">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="lines lines-3">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="data-nodes">
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+					</div>
+
+					<div class="nodes">
+						<div class="node">A0</div>
+						<div class="node">A1</div>
+						<div class="node">A2</div>
+						<div class="node">A3</div>
+
+						<div class="node parity">Ax</div>
+						<div class="node parity">Ay</div>
+						<div class="node parity">Az</div>
+
+						<div class="node">B0</div>
+						<div class="node">B1</div>
+						<div class="node">B2</div>
+						<div class="node">B3</div>
+
+						<div class="node parity">Bx</div>
+						<div class="node parity">By</div>
+						<div class="node parity">Bz</div>
+
+						<div class="node">C0</div>
+						<div class="node">C1</div>
+						<div class="node">C2</div>
+						<div class="node">C3</div>
+
+						<div class="node parity">Cx</div>
+						<div class="node parity">Cy</div>
+						<div class="node parity">Cz</div>
+
+						<div class="node">D0</div>
+						<div class="node">D1</div>
+						<div class="node">D2</div>
+						<div class="node">D3</div>
+
+						<div class="node parity">Dx</div>
+						<div class="node parity">Dy</div>
+						<div class="node parity">Dz</div>
+					</div>
+
+				</div>
+
+				<div class="button" id="start">START</div>
+				<div class="button reset" id="reset">RESET</div>
+			</div>
+
+			<div id="raid-3" class="center pane">
+
+				<h1 class="title">RAID 3 <span>(write)</span></h1>
+				<p class="sub-title">
+					Parallel Transfer with Parity
+				</p>
+
+				<div class="pane-inner-wrapper">
+
+					<img src="img/server.jpg" class="server">
+					<div class="server-title">Server</div>
+
+					<img src="img/ctrl.png" class="ctrl">
+					<div class="ctrl-title">RAID</br>Controller</div>
+
+					<div class="HDDs">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+
+						<div class="seperator"></div>
+
+						<img src="img/hdd.png" class="HDD">
+					</div>
+
+					<div class="HDD-titles">
+						<div class="HDD-title">Disk 1</div>
+						<div class="HDD-title">Disk 2</div>
+						<div class="HDD-title">Disk 3</div>
+						<div class="HDD-title">Disk 4</div>
+
+						<div class="seperator"></div>
+
+						<div class="HDD-title">Disk 5</div>
+					</div>
+
+					<div class="lines">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="lines lines-2">
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="lines lines-3">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="data-nodes">
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+					</div>
+
+					<div class="nodes">
+						<div class="node">A0</div>
+						<div class="node">A1</div>
+						<div class="node">A2</div>
+						<div class="node">A3</div>
+
+						<div class="node parity">Ap</div>
+
+						<div class="node">B0</div>
+						<div class="node">B1</div>
+						<div class="node">B2</div>
+						<div class="node">B3</div>
+
+						<div class="node parity">Bp</div>
+
+						<div class="node">C0</div>
+						<div class="node">C1</div>
+						<div class="node">C2</div>
+						<div class="node">C3</div>
+
+						<div class="node parity">Cp</div>
+
+						<div class="node">D0</div>
+						<div class="node">D1</div>
+						<div class="node">D2</div>
+						<div class="node">D3</div>
+
+						<div class="node parity">Dp</div>
+					</div>
+				</div>
+
+				<div class="button" id="start">START</div>
+				<div class="button reset" id="reset">RESET</div>
+			</div>
+
+			<div id="raid-4" class="center pane">
+
+				<h1 class="title">RAID 4 <span>(write)</span></h1>
+				<p class="sub-title">
+					Independent Data Disks with Shared Parity Disk
+				</p>
+
+				<div class="pane-inner-wrapper">
+
+					<img src="img/server.jpg" class="server">
+					<div class="server-title">Server</div>
+
+					<img src="img/ctrl.png" class="ctrl">
+					<div class="ctrl-title">RAID</br>Controller</div>
+
+					<div class="HDDs">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+						<img src="img/hdd.png" class="HDD">
+
+						<div class="seperator"></div>
+
+						<img src="img/hdd.png" class="HDD">
+					</div>
+
+					<div class="HDD-titles">
+						<div class="HDD-title">Disk 1</div>
+						<div class="HDD-title">Disk 2</div>
+						<div class="HDD-title">Disk 3</div>
+						<div class="HDD-title">Disk 4</div>
+
+						<div class="seperator"></div>
+
+						<div class="HDD-title">Disk 5</div>
+					</div>
+
+					<div class="lines">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="lines lines-2">
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="lines lines-3">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="data-nodes">
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+					</div>
+
+					<div class="nodes">
+						<div class="node">A0</div>
+						<div class="node">A1</div>
+						<div class="node">A2</div>
+						<div class="node">A3</div>
+
+						<div class="node parity">Ap</div>
+
+						<div class="node">B0</div>
+						<div class="node">B1</div>
+						<div class="node">B2</div>
+						<div class="node">B3</div>
+
+						<div class="node parity">Bp</div>
+
+						<div class="node">C0</div>
+						<div class="node">C1</div>
+						<div class="node">C2</div>
+						<div class="node">C3</div>
+
+						<div class="node parity">Cp</div>
+
+						<div class="node">D0</div>
+						<div class="node">D1</div>
+						<div class="node">D2</div>
+						<div class="node">D3</div>
+
+						<div class="node parity">Dp</div>
+					</div>
+				</div>
+
+				<div class="button" id="start">START</div>
+				<div class="button reset" id="reset">RESET</div>
+			</div>
+
+			<div id="raid-5" class="center pane">
+
+				<h1 class="title">RAID 5 <span>(write)</span></h1>
+				<p class="sub-title">
+					Independent Data Disks with Distributed Parity Blocks
+				</p>
+
+				<div class="pane-inner-wrapper">
+
+					<img src="img/server.jpg" class="server">
+					<div class="server-title">Server</div>
+
+					<img src="img/ctrl.png" class="ctrl">
+					<div class="ctrl-title">RAID</br>Controller</div>
+
+					<div class="HDDs">
+						<img src="img/hdd5.png" class="HDD">
+						<img src="img/hdd5.png" class="HDD">
+						<img src="img/hdd5.png" class="HDD">
+						<img src="img/hdd5.png" class="HDD">
+						<img src="img/hdd5.png" class="HDD">
+					</div>
+
+					<div class="HDD-titles">
+						<div class="HDD-title">Disk 1</div>
+						<div class="HDD-title">Disk 2</div>
+						<div class="HDD-title">Disk 3</div>
+						<div class="HDD-title">Disk 4</div>
+						<div class="HDD-title">Disk 5</div>
+					</div>
+
+					<div class="lines">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="data-nodes">
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+					</div>
+
+					<div class="nodes">
+						<div class="node">A0</div>
+						<div class="node">B0</div>
+						<div class="node">C0</div>
+						<div class="node">D0</div>
+						<div class="node parity">0p</div>
+
+						<div class="node">A1</div>
+						<div class="node">B1</div>
+						<div class="node">C1</div>
+						<div class="node parity">1p</div>
+						<div class="node">E1</div>
+
+						<div class="node">A1</div>
+						<div class="node">B2</div>
+						<div class="node parity">2p</div>
+						<div class="node">D2</div>
+						<div class="node">E2</div>
+
+						<div class="node">A3</div>
+						<div class="node parity">3p</div>
+						<div class="node">C3</div>
+						<div class="node">D3</div>
+						<div class="node">E3</div>
+
+						<div class="node parity">4p</div>
+						<div class="node">B4</div>
+						<div class="node">C4</div>
+						<div class="node">D4</div>
+						<div class="node">E4</div>
+					</div>
+				</div>
+
+				<div class="button" id="start">START</div>
+				<div class="button reset" id="reset">RESET</div>
+			</div>
+
+			<div id="raid-6" class="center pane">
+
+				<h1 class="title">RAID 6 <span>(write)</span></h1>
+				<p class="sub-title">
+					Independent Data Disks with Two Independent Parity Schemes
+				</p>
+
+				<div class="pane-inner-wrapper">
+
+					<img src="img/server.jpg" class="server">
+					<div class="server-title">Server</div>
+
+					<img src="img/ctrl.png" class="ctrl">
+					<div class="ctrl-title">RAID</br>Controller</div>
+
+					<div class="HDDs">
+						<img src="img/hdd5.png" class="HDD">
+						<img src="img/hdd5.png" class="HDD">
+						<img src="img/hdd5.png" class="HDD">
+						<img src="img/hdd5.png" class="HDD">
+						<img src="img/hdd5.png" class="HDD">
+					</div>
+
+					<div class="HDD-titles">
+						<div class="HDD-title">Disk 1</div>
+						<div class="HDD-title">Disk 2</div>
+						<div class="HDD-title">Disk 3</div>
+						<div class="HDD-title">Disk 4</div>
+						<div class="HDD-title">Disk 5</div>
+					</div>
+
+					<div class="lines">
+						<div class="line-hor line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+						<div class="line-ver line"></div>
+					</div>
+
+					<div class="data-nodes">
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+						<div class="data-node">DATA</div>
+					</div>
+
+					<div class="nodes">
+						<div class="node">A0</div>
+						<div class="node">A1</div>
+						<div class="node">A2</div>
+						<div class="node parity">Ap</div>
+						<div class="node parity">Aq</div>
+
+						<div class="node">B0</div>
+						<div class="node">B1</div>
+						<div class="node parity">Bp</div>
+						<div class="node parity">Bq</div>
+						<div class="node">B2</div>
+
+						<div class="node">C0</div>
+						<div class="node parity">Cp</div>
+						<div class="node parity">Cq</div>
+						<div class="node">C1</div>
+						<div class="node">C2</div>
+
+						<div class="node parity">Dp</div>
+						<div class="node parity">Dq</div>
+						<div class="node">D0</div>
+						<div class="node">D1</div>
+						<div class="node">D2</div>
+
+						<div class="node parity">Ep</div>
+						<div class="node">E0</div>
+						<div class="node">E1</div>
+						<div class="node">E2</div>
+						<div class="node parity">Eq</div>
+					</div>
+				</div>
+
+				<div class="button" id="start">START</div>
+				<div class="button reset" id="reset">RESET</div>
+			</div>
+
+		</div>
+
+		<footer>
+			<p>©Izstrādātāji - Jānis | Agnese | Maija | Aleksejs</p>
+			<p class="date">LU DF 2015</p>
+		</footer>
+
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="script.js"></script> 
+	</body>
+</html>
