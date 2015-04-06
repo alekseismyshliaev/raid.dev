@@ -727,6 +727,7 @@ function raid_5(h, v, d, dd)
 			var lostData = $('.node:nth-child(5n+1)', '#raid-5');
 			var lostDisk = $('.HDD:first', '#raid-5');
 			var diskTitle = $('.HDD-title:first', '#raid-5');
+			var healthyNodes = $('.node', '#raid-5').not(':nth-child(5n+1)').clone().addClass('clone').appendTo($('.nodes', '#raid-5'));
 			
 			lostData.css('opacity', '0.0');
 			lostDisk.css('opacity', '0.0');
@@ -757,11 +758,15 @@ function raid_5(h, v, d, dd)
 			}, 22500);
 			for(var ii=0; ii<nodes.length / 5; ii+=1)
 			{
-				currentNodes = nodes.slice(ii*5, ii*5+5);
+				currentNodes = $.merge([lostData[ii]], healthyNodes.slice(ii*4, ii*4+4));
 				$.each(currentNodes, function( index, value )
 				{
 					runReadNode(value, 0, 0, delay);
 					delay += 500;
+					if($(value).hasClass('clone'))
+					{
+						setTimeout(function() {value.remove();console.log("destroyed");}, delay*2);
+					};
 				});
 				delay += 2000;
 				var lostElement = $(lostData[ii]);
