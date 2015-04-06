@@ -414,23 +414,15 @@ html, body
 					bottom: 30px;
 					left: 50%;
 
-					margin-left: -105px;
+					margin-left: -165px;
 
 					cursor: pointer;
 				}
-				#reset
-				{
-					margin-left: 10px;
-				}
-				#raid-5 #dataloss
+				#dataloss
 				{
 					margin-left: 65px;
 				}
-				#raid-5 #start
-				{
-					margin-left: -165px;
-				}
-				#raid-5 #reset
+				#reset
 				{
 					margin-left: -50px;
 				}

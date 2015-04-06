@@ -848,4 +848,70 @@ function raid_6(h, v, d, dd)
 			$(this).text('READ');
 		}
 	})
+
+
+	$('#dataloss', '#raid-6').click(function()
+	{
+		if($('#start', '#raid-6').text() == 'READ')
+		{
+			var horizontal = h;
+			var vertical = v;
+			var delay = d;
+			var dataDelay = dd+50;
+			var lostData = $('.node:nth-child(5n+1)', '#raid-6');
+			var lostDisk = $('.HDD:first', '#raid-6');
+			var diskTitle = $('.HDD-title:first', '#raid-6');
+			var healthyNodes = $('.node', '#raid-6').not(':nth-child(5n+1)').clone().addClass('clone').appendTo($('.nodes', '#raid-6'));
+			
+			lostData.css('opacity', '0.0');
+			lostDisk.css('opacity', '0.0');
+			diskTitle.text('Lost');
+			setTimeout(function()
+			{
+				lostDisk.hide();
+				lostDisk.css('opacity', '1.0');
+				lostDisk.slideDown(1000, function()
+ 				{
+					$(diskTitle).text('New disk');
+				});
+			}, 1000);
+			setTimeout(function(){
+				$(lostData[0]).css('opacity', '1.0');
+			}, 4000);
+			setTimeout(function(){
+				$(lostData[1]).css('opacity', '1.0');
+			}, 8000);
+			setTimeout(function(){
+				$(lostData[2]).css('opacity', '1.0');
+			}, 12500);
+			setTimeout(function(){
+				$(lostData[3]).css('opacity', '1.0');
+			}, 18000);
+			setTimeout(function(){
+				$(lostData[4]).css('opacity', '1.0');
+			}, 22500);
+			for(var ii=0; ii<nodes.length / 5; ii+=1)
+			{
+				currentNodes = $.merge([lostData[ii]], healthyNodes.slice(ii*4, ii*4+4));
+				$.each(currentNodes, function( index, value )
+				{
+					runReadNode(value, 0, 0, delay);
+					delay += 500;
+					if($(value).hasClass('clone'))
+					{
+						setTimeout(function() {value.remove()}, delay*2);
+					};
+				});
+				delay += 2000;
+				var lostElement = $(lostData[ii]);
+				runNode(lostElement, delay, horizontal, vertical);
+				vertical += 26;
+				delay += 500;
+			}
+			setTimeout(function()
+			{
+				diskTitle.text('Disk 1');
+			}, 27000);
+		}
+	})
 }
