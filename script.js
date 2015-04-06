@@ -339,6 +339,68 @@ function raid_1(h, v, d, dd)
 			$(this).text('READ');
 		}
 	})
+
+	$('#dataloss', '#raid-1').click(function()
+	{
+		if($('#start', '#raid-1').text() == 'READ')
+		{
+			var horizontal = h;
+			var vertical = v;
+			var delay = d;
+			var dataDelay = dd+50;
+			var lostData = $('.node:nth-child(2n+1)', '#raid-1').slice(0, 4);
+			var lostDisk = $('.HDD:first', '#raid-1');
+			var diskTitle = $('.HDD-title:first', '#raid-1');
+			var healthyNodes = $('.node:nth-child(2n+2)', '#raid-1').slice(0, 4).clone().addClass('clone').appendTo($('.nodes', '#raid-1'));
+			
+			lostData.css('opacity', '0.0');
+			lostDisk.css('opacity', '0.0');
+			diskTitle.text('Lost');
+			setTimeout(function()
+			{
+				lostDisk.hide();
+				lostDisk.css('opacity', '1.0');
+				lostDisk.slideDown(1000, function()
+ 				{
+					$(diskTitle).text('New disk');
+				});
+			}, 1000);
+			setTimeout(function(){
+				$(lostData[0]).css('opacity', '1.0');
+			}, 4000);
+			setTimeout(function(){
+				$(lostData[1]).css('opacity', '1.0');
+			}, 7000);
+			setTimeout(function(){
+				$(lostData[2]).css('opacity', '1.0');
+			}, 10000);
+			setTimeout(function(){
+				$(lostData[3]).css('opacity', '1.0');
+			}, 13000);
+			for(var ii=0; ii<4; ii+=1)
+			{
+				currentNodes = $.merge([lostData[ii]], [healthyNodes[ii]]);
+				$.each(currentNodes, function( index, value )
+				{
+					runReadNode(value, 0, 0, delay);
+					delay += 500;
+					if($(value).hasClass('clone'))
+					{
+						setTimeout(function() {value.remove()}, delay*2);
+					};
+				});
+				delay += 2000;
+				var lostElement = $(lostData[ii]);
+				runNode(lostElement, delay, horizontal, vertical);
+				vertical += 26;
+				delay += 500;
+			}
+			setTimeout(function()
+			{
+				diskTitle.text('Disk 1');
+			}, 16000);
+		}
+	})
 }
 
 function raid_2(h, v, d, dd)
@@ -756,7 +818,7 @@ function raid_5(h, v, d, dd)
 			setTimeout(function(){
 				$(lostData[4]).css('opacity', '1.0');
 			}, 22500);
-			for(var ii=0; ii<nodes.length / 5; ii+=1)
+			for(var ii=0; ii<5; ii+=1)
 			{
 				currentNodes = $.merge([lostData[ii]], healthyNodes.slice(ii*4, ii*4+4));
 				$.each(currentNodes, function( index, value )
@@ -849,7 +911,6 @@ function raid_6(h, v, d, dd)
 		}
 	})
 
-
 	$('#dataloss', '#raid-6').click(function()
 	{
 		if($('#start', '#raid-6').text() == 'READ')
@@ -890,7 +951,7 @@ function raid_6(h, v, d, dd)
 			setTimeout(function(){
 				$(lostData[4]).css('opacity', '1.0');
 			}, 22500);
-			for(var ii=0; ii<nodes.length / 5; ii+=1)
+			for(var ii=0; ii<5; ii+=1)
 			{
 				currentNodes = $.merge([lostData[ii]], healthyNodes.slice(ii*4, ii*4+4));
 				$.each(currentNodes, function( index, value )
