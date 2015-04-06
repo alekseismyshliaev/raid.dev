@@ -407,7 +407,7 @@ html, body
 					filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c2c2c2', endColorstr='#f5f5f5');
 					background-color:#c2c2c2;
 				}
-				#start, #reset
+				#start, #reset, #dataloss
 				{
 					position: absolute;
 
@@ -421,6 +421,18 @@ html, body
 				#reset
 				{
 					margin-left: 10px;
+				}
+				#raid-5 #dataloss
+				{
+					margin-left: 65px;
+				}
+				#raid-5 #start
+				{
+					margin-left: -165px;
+				}
+				#raid-5 #reset
+				{
+					margin-left: -50px;
 				}
 	footer, .wrapper:after
 	{
