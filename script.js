@@ -257,6 +257,29 @@ function raid_0(h, v, d, dd)
 			$(this).text('READ');
 		}
 	})
+
+	$('#dataloss', '#raid-0').click(function()
+	{
+		if($('#start', '#raid-0').text() == 'READ')
+		{
+			var lostData = $('.node:nth-child(4n+1)', '#raid-0');
+			var lostDisk = $('.HDD:first', '#raid-0');
+			var diskTitle = $('.HDD-title:first', '#raid-0');
+			
+			lostData.css('opacity', '0.0');
+			lostDisk.css('opacity', '0.0');
+			diskTitle.text('Lost');
+			setTimeout(function()
+			{
+				lostDisk.hide();
+				lostDisk.css('opacity', '1.0');
+				lostDisk.slideDown(1000, function()
+ 				{
+					$(diskTitle).text('New disk');
+				});
+			}, 1000);
+		}
+	})
 }
 
 function raid_1(h, v, d, dd)
